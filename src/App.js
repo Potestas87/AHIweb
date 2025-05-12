@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import MenuBar from './MenuBar';
+import Home from './home';
+import ChooseUs from './chooseus';
+import ScheduleAppt from './scheduleappt';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-function App() {
+function Layout() {
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MenuBar />
+      {location.pathname === '/' && <Home />}  
+
+      <Routes>
+        <Route path="/Home" element={<Home />} />
+        <Route path="/ChooseUs" element={<ChooseUs />} />
+        <Route path="/ScheduleAppt" element={<ScheduleAppt />} />
+      </Routes>
+    </>
   );
 }
 
-export default App;
+export default function WrappedApp() {
+  return (
+    <Router>
+      <Layout />
+    </Router>
+  );
+}
+
